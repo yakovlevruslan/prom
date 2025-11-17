@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "My kubeplugin"
+# Define command-line arguments
+
+#!/bin/bash
+
+# Перевірка наявності необхідних аргументів
+if [ "$#" -ne 2 ]; then
+    echo "Використання: $0 <namespace> <resource_type>"
+    echo "Приклад: $0 kube-system pods"
+    exit 1
+fi
+
+NAMESPACE=$1
+RESOURCE_TYPE=$2
+COMMAND="top" # використовуємо команду top
+
+echo "Resource, Namespace, Name, CPU, Memory"
+
+# Retrieve resource usage statistics from Kubernetes
+# Використовуємо -n $NAMESPACE для фільтрації по namespace
+kubectl "$COMMAND" "$RESOURCE_TYPE" -n "$NAMESPACE" | tail -n +2 | while read line
+do
+  # Extract CPU and memory usage from the output using awk
+  NAME=$(echo "$line" | awk '{print $1}')
+  CPU=$(echo "$line" | awk '{print $2}')
+  MEMORY=$(echo "$line" | awk '{print $3}')
+
+  # Output the statistics to the console
+  # "Resource, Namespace, Name, CPU, Memory"
+  echo "$RESOURCE_TYPE, $NAMESPACE, $NAME, $CPU, $MEMORY"
+done
