@@ -1,10 +1,15 @@
-Як користуватися скриптом:
+*Як користуватися скриптом:*
+
 Збережіть файл kubeplugin.sh
-Зробіть його виконуваним:
-bash
+
+*Зробіть його виконуваним:*
+
 chmod +x kubeplugin.sh
-Запустіть скрипт:
-bash
+
+*Запустіть скрипт:*
+
 ./kubeplugin.sh kube-system pods
-Або для любого вибраного namespace:
+
+*Або для любого вибраного namespace:*
+
 ./kubeplugin.sh my-namespace pods
